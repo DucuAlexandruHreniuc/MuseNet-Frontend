@@ -1,0 +1,34 @@
+<div class="musicians-container">
+  <h2>User Musicians</h2>
+
+  <table class="musicians-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Musical Ability</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let musician of userMusicians">
+        <td>{{ musician.id }}</td>
+        <td>{{ musician.username }}</td>
+        <td>
+          <span class="musician-ability {{ musician.musicalAbility }}">
+            {{ musician.musicalAbility }}
+          </span>
+        </td>
+        <td>
+          <div class="action-buttons">
+            <button class="btn btn-view">Send a friend request</button>
+            <button class="btn btn-edit">...</button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="userMusicians.length === 0">
+        <td colspan="4" class="no-data">No musicians found</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

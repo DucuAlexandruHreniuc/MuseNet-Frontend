@@ -1,0 +1,1601 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "Musenet API",
+		"description": "Musenet API documentation",
+		"termsOfService": "",
+		"license": {
+			"name": "Apache 2.0",
+			"url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+			},
+		"contact": {
+		"name": "API Support",
+		"url": "https://example.com/support",
+		"email": "support@example.com"
+    },
+		"version": "0.0.1"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8080",
+			"description": "Generated server url"
+		}
+	],
+	"paths": {
+		"/api/admin/users/{login}": {
+			"get": {
+				"tags": [
+					"user-resource"
+				],
+				"operationId": "getUser",
+				"parameters": [
+					{
+						"name": "login",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/AdminUserDTO"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"user-resource"
+				],
+				"operationId": "updateUser",
+				"parameters": [
+					{
+						"name": "login",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"pattern": "^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AdminUserDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/AdminUserDTO"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"user-resource"
+				],
+				"operationId": "deleteUser",
+				"parameters": [
+					{
+						"name": "login",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"pattern": "^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/api/admin/users": {
+			"get": {
+				"tags": [
+					"user-resource"
+				],
+				"operationId": "getAllUsers",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Zero-based page index (0..N)",
+						"required": false,
+						"schema": {
+							"minimum": 0,
+							"type": "integer",
+							"default": 0
+						}
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "The size of the page to be returned",
+						"required": false,
+						"schema": {
+							"minimum": 1,
+							"type": "integer",
+							"default": 20
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/AdminUserDTO"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"user-resource"
+				],
+				"operationId": "updateUser_1",
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AdminUserDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/AdminUserDTO"
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"user-resource"
+				],
+				"operationId": "createUser",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AdminUserDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/user-musicians/{id}": {
+			"get": {
+				"tags": [
+					"user-musician-resource"
+				],
+				"operationId": "getUserMusician",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/UserMusician"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"user-musician-resource"
+				],
+				"operationId": "updateUserMusician",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserMusician"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/UserMusician"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"user-musician-resource"
+				],
+				"operationId": "deleteUserMusician",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			},
+			"patch": {
+				"tags": [
+					"user-musician-resource"
+				],
+				"operationId": "partialUpdateUserMusician",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserMusician"
+							}
+						},
+						"application/merge-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserMusician"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/UserMusician"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/bands/{id}": {
+			"get": {
+				"tags": [
+					"band-resource"
+				],
+				"operationId": "getBand",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/Band"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"band-resource"
+				],
+				"operationId": "updateBand",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Band"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/Band"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"band-resource"
+				],
+				"operationId": "deleteBand",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			},
+			"patch": {
+				"tags": [
+					"band-resource"
+				],
+				"operationId": "partialUpdateBand",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Band"
+							}
+						},
+						"application/merge-patch+json": {
+							"schema": {
+								"$ref": "#/components/schemas/Band"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/Band"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/user-musicians": {
+			"get": {
+				"tags": [
+					"user-musician-resource"
+				],
+				"operationId": "getAllUserMusicians",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Zero-based page index (0..N)",
+						"required": false,
+						"schema": {
+							"minimum": 0,
+							"type": "integer",
+							"default": 0
+						}
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "The size of the page to be returned",
+						"required": false,
+						"schema": {
+							"minimum": 1,
+							"type": "integer",
+							"default": 20
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"name": "eagerload",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "boolean",
+							"default": true
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserMusician"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"user-musician-resource"
+				],
+				"operationId": "createUserMusician",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserMusician"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/UserMusician"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/register": {
+			"post": {
+				"tags": [
+					"account-resource"
+				],
+				"operationId": "registerAccount",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ManagedUserVM"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"description": "Created"
+					}
+				}
+			}
+		},
+		"/api/bands": {
+			"get": {
+				"tags": [
+					"band-resource"
+				],
+				"operationId": "getAllBands",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Zero-based page index (0..N)",
+						"required": false,
+						"schema": {
+							"minimum": 0,
+							"type": "integer",
+							"default": 0
+						}
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "The size of the page to be returned",
+						"required": false,
+						"schema": {
+							"minimum": 1,
+							"type": "integer",
+							"default": 20
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Band"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"band-resource"
+				],
+				"operationId": "createBand",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Band"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/Band"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/authorities": {
+			"get": {
+				"tags": [
+					"authority-resource"
+				],
+				"operationId": "getAllAuthoritiesAsStream",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/x-ndjson": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Authority"
+									}
+								}
+							},
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Authority"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"authority-resource"
+				],
+				"operationId": "createAuthority",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Authority"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/Authority"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/authenticate": {
+			"get": {
+				"tags": [
+					"authenticate-controller"
+				],
+				"operationId": "isAuthenticated",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"authenticate-controller"
+				],
+				"operationId": "authorize",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginVM"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/JWTToken"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/account": {
+			"get": {
+				"tags": [
+					"account-resource"
+				],
+				"operationId": "getAccount",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/AdminUserDTO"
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"account-resource"
+				],
+				"operationId": "saveAccount",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AdminUserDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/api/account/reset-password/init": {
+			"post": {
+				"tags": [
+					"account-resource"
+				],
+				"operationId": "requestPasswordReset",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "string"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/api/account/reset-password/finish": {
+			"post": {
+				"tags": [
+					"account-resource"
+				],
+				"operationId": "finishPasswordReset",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/KeyAndPasswordVM"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/api/account/change-password": {
+			"post": {
+				"tags": [
+					"account-resource"
+				],
+				"operationId": "changePassword",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PasswordChangeDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/api/users": {
+			"get": {
+				"tags": [
+					"public-user-resource"
+				],
+				"operationId": "getAllPublicUsers",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Zero-based page index (0..N)",
+						"required": false,
+						"schema": {
+							"minimum": 0,
+							"type": "integer",
+							"default": 0
+						}
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "The size of the page to be returned",
+						"required": false,
+						"schema": {
+							"minimum": 1,
+							"type": "integer",
+							"default": 20
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserDTO"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/users/_search/{query}": {
+			"get": {
+				"tags": [
+					"public-user-resource"
+				],
+				"operationId": "search",
+				"parameters": [
+					{
+						"name": "query",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserDTO"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/user-musicians/_search": {
+			"get": {
+				"tags": [
+					"user-musician-resource"
+				],
+				"operationId": "searchUserMusicians",
+				"parameters": [
+					{
+						"name": "query",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Zero-based page index (0..N)",
+						"required": false,
+						"schema": {
+							"minimum": 0,
+							"type": "integer",
+							"default": 0
+						}
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "The size of the page to be returned",
+						"required": false,
+						"schema": {
+							"minimum": 1,
+							"type": "integer",
+							"default": 20
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserMusician"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/bands/_search": {
+			"get": {
+				"tags": [
+					"band-resource"
+				],
+				"operationId": "searchBands",
+				"parameters": [
+					{
+						"name": "query",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Zero-based page index (0..N)",
+						"required": false,
+						"schema": {
+							"minimum": 0,
+							"type": "integer",
+							"default": 0
+						}
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"description": "The size of the page to be returned",
+						"required": false,
+						"schema": {
+							"minimum": 1,
+							"type": "integer",
+							"default": 20
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Band"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/authorities/{id}": {
+			"get": {
+				"tags": [
+					"authority-resource"
+				],
+				"operationId": "getAuthority",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/Authority"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"authority-resource"
+				],
+				"operationId": "deleteAuthority",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/api/activate": {
+			"get": {
+				"tags": [
+					"account-resource"
+				],
+				"operationId": "activateAccount",
+				"parameters": [
+					{
+						"name": "key",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"AdminUserDTO": {
+				"required": [
+					"login"
+				],
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"login": {
+						"maxLength": 50,
+						"minLength": 1,
+						"pattern": "^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$",
+						"type": "string"
+					},
+					"firstName": {
+						"maxLength": 50,
+						"minLength": 0,
+						"type": "string"
+					},
+					"lastName": {
+						"maxLength": 50,
+						"minLength": 0,
+						"type": "string"
+					},
+					"email": {
+						"maxLength": 254,
+						"minLength": 5,
+						"type": "string"
+					},
+					"imageUrl": {
+						"maxLength": 256,
+						"minLength": 0,
+						"type": "string"
+					},
+					"activated": {
+						"type": "boolean"
+					},
+					"langKey": {
+						"maxLength": 10,
+						"minLength": 2,
+						"type": "string"
+					},
+					"createdBy": {
+						"type": "string"
+					},
+					"createdDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModifiedBy": {
+						"type": "string"
+					},
+					"lastModifiedDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"authorities": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"Band": {
+				"required": [
+					"name"
+				],
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"name": {
+						"type": "string"
+					},
+					"genre": {
+						"type": "string"
+					},
+					"formedDate": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"UserMusician": {
+				"required": [
+					"musicalAbility",
+					"password",
+					"username"
+				],
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"musicalAbility": {
+						"type": "string",
+						"enum": [
+							"VOCALIST",
+							"GUITARIST",
+							"PIANIST",
+							"DRUMMER",
+							"BASSIST",
+							"PRODUCER",
+							"DJ"
+						]
+					},
+					"photos": {
+						"type": "string",
+						"format": "byte"
+					},
+					"photosContentType": {
+						"type": "string"
+					},
+					"videos": {
+						"type": "string"
+					},
+					"gear": {
+						"type": "string"
+					},
+					"friends": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/UserMusician"
+						}
+					},
+					"bands": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Band"
+						}
+					},
+					"userMusicians": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/UserMusician"
+						}
+					}
+				}
+			},
+			"ManagedUserVM": {
+				"required": [
+					"login"
+				],
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"login": {
+						"maxLength": 50,
+						"minLength": 1,
+						"pattern": "^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$",
+						"type": "string"
+					},
+					"firstName": {
+						"maxLength": 50,
+						"minLength": 0,
+						"type": "string"
+					},
+					"lastName": {
+						"maxLength": 50,
+						"minLength": 0,
+						"type": "string"
+					},
+					"email": {
+						"maxLength": 254,
+						"minLength": 5,
+						"type": "string"
+					},
+					"imageUrl": {
+						"maxLength": 256,
+						"minLength": 0,
+						"type": "string"
+					},
+					"activated": {
+						"type": "boolean"
+					},
+					"langKey": {
+						"maxLength": 10,
+						"minLength": 2,
+						"type": "string"
+					},
+					"createdBy": {
+						"type": "string"
+					},
+					"createdDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModifiedBy": {
+						"type": "string"
+					},
+					"lastModifiedDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"authorities": {
+						"uniqueItems": true,
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"password": {
+						"maxLength": 100,
+						"minLength": 4,
+						"type": "string"
+					}
+				}
+			},
+			"Authority": {
+				"required": [
+					"name"
+				],
+				"type": "object",
+				"properties": {
+					"name": {
+						"maxLength": 50,
+						"minLength": 0,
+						"type": "string"
+					}
+				}
+			},
+			"LoginVM": {
+				"required": [
+					"password",
+					"username"
+				],
+				"type": "object",
+				"properties": {
+					"username": {
+						"maxLength": 50,
+						"minLength": 1,
+						"type": "string"
+					},
+					"password": {
+						"maxLength": 100,
+						"minLength": 4,
+						"type": "string"
+					},
+					"rememberMe": {
+						"type": "boolean"
+					}
+				}
+			},
+			"JWTToken": {
+				"type": "object",
+				"properties": {
+					"id_token": {
+						"type": "string"
+					}
+				}
+			},
+			"User": {
+				"required": [
+					"activated",
+					"login"
+				],
+				"type": "object",
+				"properties": {
+					"createdBy": {
+						"type": "string"
+					},
+					"createdDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastModifiedBy": {
+						"type": "string"
+					},
+					"lastModifiedDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"login": {
+						"maxLength": 50,
+						"minLength": 1,
+						"pattern": "^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$",
+						"type": "string"
+					},
+					"firstName": {
+						"maxLength": 50,
+						"minLength": 0,
+						"type": "string"
+					},
+					"lastName": {
+						"maxLength": 50,
+						"minLength": 0,
+						"type": "string"
+					},
+					"email": {
+						"maxLength": 254,
+						"minLength": 5,
+						"type": "string"
+					},
+					"activated": {
+						"type": "boolean"
+					},
+					"langKey": {
+						"maxLength": 10,
+						"minLength": 2,
+						"type": "string"
+					},
+					"imageUrl": {
+						"maxLength": 256,
+						"minLength": 0,
+						"type": "string"
+					},
+					"resetDate": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"KeyAndPasswordVM": {
+				"type": "object",
+				"properties": {
+					"key": {
+						"type": "string"
+					},
+					"newPassword": {
+						"type": "string"
+					}
+				}
+			},
+			"PasswordChangeDTO": {
+				"type": "object",
+				"properties": {
+					"currentPassword": {
+						"type": "string"
+					},
+					"newPassword": {
+						"type": "string"
+					}
+				}
+			},
+			"UserDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"login": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	}
+}

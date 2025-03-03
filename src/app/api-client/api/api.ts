@@ -1,0 +1,15 @@
+export * from './accountResource.service';
+import { AccountResourceService } from './accountResource.service';
+export * from './authenticateController.service';
+import { AuthenticateControllerService } from './authenticateController.service';
+export * from './authorityResource.service';
+import { AuthorityResourceService } from './authorityResource.service';
+export * from './bandResource.service';
+import { BandResourceService } from './bandResource.service';
+export * from './publicUserResource.service';
+import { PublicUserResourceService } from './publicUserResource.service';
+export * from './userMusicianResource.service';
+import { UserMusicianResourceService } from './userMusicianResource.service';
+export * from './userResource.service';
+import { UserResourceService } from './userResource.service';
+export const APIS = [AccountResourceService, AuthenticateControllerService, AuthorityResourceService, BandResourceService, PublicUserResourceService, UserMusicianResourceService, UserResourceService];
